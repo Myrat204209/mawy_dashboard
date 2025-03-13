@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mawy_dashboard/auth_provider.dart';
@@ -13,7 +15,8 @@ class App extends ConsumerWidget {
     // Watch the theme provider.
     final themeMode = ref.watch(themeNotifierProvider);
     // Watch authentication state to decide which initial screen to display.
-    final authState = ref.watch(authNotifierProvider);
+    final authState = ref.read(authNotifierProvider);
+    log('State of authentication is ${authState.isLoggedIn}');
 
     return MaterialApp(
       initialRoute: '/',

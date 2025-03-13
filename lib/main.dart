@@ -4,11 +4,6 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:mawy_dashboard/app.dart';
 import 'package:mawy_dashboard/hive/hive_registrar.g.dart';
 
-final keyBoxProvider = Provider((ref) => Hive.box("test1box"));
-final loginBoxProvider = Provider((ref) => Hive.box("test2box"));
-final newsIdBoxProvider = Provider((ref) => Hive.box("test3box"));
-final authCheckBoxProvider = Provider((ref) => Hive.box("test4box"));
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -21,3 +16,8 @@ Future<void> main() async {
 
   runApp(ProviderScope(child: App()));
 }
+
+final keyBoxProvider = Provider((ref) => Hive.box("test1box"));
+final loginBoxProvider = Provider((ref) => Hive.box("test2box"));
+final newsIdBoxProvider = Provider((ref) => Hive.box("test3box"));
+final authCheckBoxProvider = Provider((ref) => Hive.box("test4box"));

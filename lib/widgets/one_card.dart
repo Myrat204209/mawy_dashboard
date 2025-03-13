@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mawy_dashboard/theme_provider.dart';
+import 'package:mawy_dashboard/views/diagrams.dart';
 
 import '/global/colors.dart';
 import '/main.dart';
@@ -8,16 +9,17 @@ import '/objects/diagramm_key.dart';
 
 class OneCard extends ConsumerWidget {
   const OneCard({super.key});
-  // List<String> header = r!.get('key')!.keys.keys.toList();
-  // List<DiagramKey> headers = [];
-  // List datas = [];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double w = MediaQuery.sizeOf(context).width;
     double h = MediaQuery.sizeOf(context).height;
+    
+    List<DiagrammKey> headers = [];
+    // List datas = [];
 
     return ListView.builder(
+      itemCount: headers.length,
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.only(bottom: 20),
@@ -31,7 +33,7 @@ class OneCard extends ConsumerWidget {
               ),
             ],
             color:
-                ref.read(themeNotifierProvider.notifier).isDarkTheme()
+                ref.watch(themeNotifierProvider.notifier).isDarkTheme()
                     ? white.withValues(alpha: 0.2)
                     : Color(0xffF8F8F8),
             borderRadius: BorderRadius.circular(15),
@@ -41,11 +43,11 @@ class OneCard extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
-                  headers[i].hdr,
+                  headers[index].hdr,
                   style: TextStyle(
                     fontSize: 18,
                     color:
-                        ref.read(themeNotifierProvider.notifier).isDarkTheme()
+                        ref.watch(themeNotifierProvider.notifier).isDarkTheme()
                             ? white.withValues(alpha: 0.7)
                             : textcolor.withValues(alpha: 0.8),
                   ),
@@ -59,7 +61,12 @@ class OneCard extends ConsumerWidget {
                 color: grey,
                 margin: EdgeInsets.only(bottom: 10),
               ),
-              buildDiagram(datas = [i, keyBox!.get('key')!.keys]),
+              BuildDiagram(
+                input: DiagramInput(
+                  tpy: index,
+                  data: ref.read(keyBoxProvider).get('key')!.keys,
+                ),
+              ),
             ],
           ),
         );

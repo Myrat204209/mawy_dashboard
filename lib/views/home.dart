@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mawy_dashboard/hive/hive_objects.dart';
 import 'package:mawy_dashboard/theme_provider.dart';
+import 'package:mawy_dashboard/views/news.dart';
+import 'package:mawy_dashboard/widgets/exit_alert.dart';
+import 'package:mawy_dashboard/widgets/one_card.dart';
 
 import '/global/colors.dart';
 import '/global/values.dart';
@@ -30,7 +33,7 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor:
-          ref.read(themeNotifierProvider.notifier).isDarkTheme()
+          ref.watch(themeNotifierProvider.notifier).isDarkTheme()
               ? maincolorDark
               : maincolor,
       body: SizedBox(
@@ -48,7 +51,9 @@ class HomePage extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 12,
                       color:
-                          ref.read(themeNotifierProvider.notifier).isDarkTheme()
+                          ref
+                                  .watch(themeNotifierProvider.notifier)
+                                  .isDarkTheme()
                               ? maincolor.withValues(alpha: 0.7)
                               : darkblue.withValues(alpha: 0.8),
                     ),

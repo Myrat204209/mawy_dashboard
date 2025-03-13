@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -227,10 +229,10 @@ class LoginPage extends HookConsumerWidget {
                     duration: const Duration(milliseconds: 150),
                     onPressed: () async {
                       isLoad.value = true;
-                      logins = loginController.text;
-                      passwords = passwordController.text;
-                      keyCodes = keyCodeController.text;
-
+                      logins = loginController.text.trim();
+                      passwords = passwordController.text.trim();
+                      keyCodes = keyCodeController.text.trim();
+                      log('Login button pressed.');
                       ref
                           .read(authCheckBoxProvider)
                           .put(
@@ -242,6 +244,7 @@ class LoginPage extends HookConsumerWidget {
                               keys: keyCodes,
                             ),
                           );
+                      log('Login button pressed.');
                       if (isCheck.value) {
                         ref
                             .read(loginBoxProvider)
@@ -261,11 +264,13 @@ class LoginPage extends HookConsumerWidget {
                       }
                       try {
                         connCheck();
+                        log('Login button pressed and successful connection.');
                         String connect = await getDatas(
                           logins,
                           passwords,
                           keyCodes,
                         );
+                        log('Login button pressed and successful login in.');
                         final initData = datasFromJson(connect);
                         ref
                             .read(keyBoxProvider)
